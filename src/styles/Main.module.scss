@@ -1,0 +1,120 @@
+.main {
+  background-color: #304030;
+  width: 100%;
+  height: 100vh;
+  // display: none;
+}
+.date {
+  font-size: 16px;
+  color: #ffffff;
+  position: relative;
+  height: 50px;
+  p {
+    text-align: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  span:first-child {
+    padding-right: 20px;
+  }
+  span:last-child {
+    padding-right: 40px;
+  }
+}
+.content {
+  display: flex;
+}
+.count_container {
+  flex-basis: 50%;
+  .count {
+    font-size: 170px;
+    color: #e8e8e8;
+    text-align: center;
+  }
+  .controller {
+    text-align: center;
+    .bell,
+    .delete {
+      border: 2px solid #e8e8e8;
+      display: inline-block;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      text-align: center;
+      margin: 5px;
+      &:before {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+      }
+      img {
+        width: 70%;
+        vertical-align: middle;
+      }
+    }
+    .play {
+      width: 64px;
+      height: 64px;
+      background-color: #e8e8e8;
+      border-radius: 50%;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      &:before {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+      }
+      img {
+        width: 50%;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+.content {
+  flex-basis: 50%;
+  color: #e8e8e8;
+  h2 {
+    font-size: 32px;
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #e8e8e8;
+      border-radius: 50%;
+      margin-right: 20px;
+      vertical-align: middle;
+    }
+  }
+  ul {
+    display: inline-block;
+    margin-right: 105px;
+    li {
+      list-style: none;
+      text-align: left;
+      line-height: 50px;
+      &:before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border: 1px solid #e8e8e8;
+        border-radius: 50%;
+        margin-right: 20px;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+.tomato {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 70%;
+}
