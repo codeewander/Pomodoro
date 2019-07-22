@@ -3,11 +3,15 @@ import analysis from "../images/icon-analysis.svg";
 import list from "../images/icon-list.svg";
 import styles from "../styles/Navbar.module.scss";
 
-const Navbar = () => {
+const Navbar = props => {
   return (
     <div className={styles.nav}>
-      <img src={analysis} alt="analysis" />
-      <img src={list} alt="bell" />
+      <button>
+        <img src={analysis} alt="analysis" />
+      </button>
+      <button onClick={props.clickTodoButton}>
+        <img src={list} alt="bell" />
+      </button>
     </div>
   );
 };

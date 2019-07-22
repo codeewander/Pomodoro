@@ -1,0 +1,58 @@
+.todo {
+  width: 50%;
+  position: absolute;
+  background-color: #304030;
+  transform: translateX(calc(-100% - 80px));
+  z-index: 1;
+  height: 100vh;
+  box-shadow: 2px 6px 8px #756f6f;
+  .container {
+    margin-right: 25px;
+    margin-left: 25px;
+  }
+  h1 {
+    color: #e8e8e8;
+    font-size: 40px;
+    display: inline-block;
+  }
+  .panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .status_panel {
+    display: inline-block;
+    button {
+      color: #e8e8e8;
+      font-size: 16px;
+      cursor: pointer;
+      opacity: 0.5;
+      background: none;
+      border: none;
+    }
+  }
+  form {
+    position: relative;
+    button {
+      position: absolute;
+      right: 7px;
+      top: 7px;
+      width: 50px;
+      height: 40px;
+      background-color: #f08448;
+      border: none;
+      border-radius: 25px;
+      font-size: 40px;
+      color: #ffffff;
+      line-height: 0;
+    }
+  }
+  input {
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    padding: 15px 0 15px 15px;
+    border-radius: 30px;
+    box-sizing: border-box;
+  }
+}

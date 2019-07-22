@@ -1,7 +1,21 @@
 .nav {
   display: flex;
   flex-direction: column;
-  width: 78px;
+  width: 80px;
   justify-content: center;
   background-color: #e8e8e8;
+  position: fixed;
+  height: 100vh;
+  z-index: 2;
+  button {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    border: none;
+    background-color: #e8e8e8;
+    &:hover {
+      background-color: #ffffff;
+      transition: 0.5s;
+    }
+  }
 }
