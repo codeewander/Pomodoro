@@ -12,9 +12,18 @@ class TodoList extends Component {
   }
 
   render() {
+    
     const listItem = this.props.todolist.map((todo, index) => (
-      <li key={todo.id}>
-        <span>{todo.text}</span>
+      <li
+        key={todo.id}
+        className={todo.completed ? styles.completed : styles.undo}
+      >
+        <span
+          onClick={() => this.props.completeTodo(index)}
+          style={{ textDecoration: todo.completed ? "line-through" : "none" }}
+        >
+          {todo.text}
+        </span>
         <div className={styles.buttons}>
           <button>
             <img src={edit} alt="edit" />

@@ -42,6 +42,16 @@ class Todo extends Component {
     });
   };
 
+  completeTodo = index => {
+    this.setState(preState => {
+      const todolist = preState.todoList;
+      todolist[index].completed = !todolist[index].completed;
+      return {
+        todoList: todolist
+      };
+    });
+  };
+
   render() {
     return (
       <div
@@ -79,6 +89,7 @@ class Todo extends Component {
           <TodoList
             todolist={this.state.todoList}
             removeTodo={this.removeTodo}
+            completeTodo={this.completeTodo}
           />
         </div>
       </div>

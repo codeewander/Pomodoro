@@ -3,6 +3,7 @@ import bell from "../images/icon-bell.svg";
 import play from "../images/icon-play--orange.svg";
 import deleted from "../images/icon-delete.svg";
 import tomato from "../images/tomato--orange.svg";
+import pause from '../images/icon-pause--orange.svg';
 import styles from "../styles/Main.module.scss";
 
 class Main extends Component {
@@ -11,7 +12,11 @@ class Main extends Component {
     this.state = {
       currentDate: "",
       currentDay: "",
-      currentTime: ""
+      currentTime: "",
+      isPlaying: false,
+      remindTime: 1500,
+      timerMinutes:'',
+      timerSeconds:''
     };
   }
   componentDidMount() {
@@ -54,10 +59,15 @@ class Main extends Component {
     }));
   }
 
-  // date = () => {
-  //   const dateFormat = new Date().format("yyyy.MM.dd");
-  //   return dateFormat;
-  // };
+  switchTimer =()=>{
+    this.setState(prevState =>{
+      const timerStatus = !prevState.isPlaying;
+      return {
+        isPlaying:timerStatus
+      }
+    })
+    console.log(this.state.isPlaying)
+  }
 
   render() {
     const { currentDate, currentDay, currentTime } = this.state;
@@ -83,8 +93,11 @@ class Main extends Component {
               <div className={styles.bell}>
                 <img src={bell} alt="bell" />
               </div>
-              <div className={styles.play}>
-                <img src={play} alt="play" />
+              <div className={styles.play} onClick={this.switchTimer}>
+                {
+                  this.state.isPlaying? <img src={pause} alt="pause" />: <img src={play} alt="play"/>
+                }
+                
               </div>
               <div className={styles.delete}>
                 <img src={deleted} alt="delete" />
