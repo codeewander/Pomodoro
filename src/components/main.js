@@ -3,7 +3,7 @@ import bell from "../images/icon-bell.svg";
 import play from "../images/icon-play--orange.svg";
 import deleted from "../images/icon-delete.svg";
 import tomato from "../images/tomato--orange.svg";
-import pause from '../images/icon-pause--orange.svg';
+import pause from "../images/icon-pause--orange.svg";
 import styles from "../styles/Main.module.scss";
 
 class Main extends Component {
@@ -13,17 +13,75 @@ class Main extends Component {
       currentDate: "",
       currentDay: "",
       currentTime: "",
-      isPlaying: false,
-      remindTime: 1500,
-      timerMinutes:'',
-      timerSeconds:''
+      timerOn: false,
+      workTime: 1500,
+      timerStart: false,
+      timeText: ""
     };
   }
   componentDidMount() {
     setInterval(() => this.updateCurrentDate(), 1000);
+    this.showRemainTime(this.state.workTime);
   }
 
-  updateCurrentDate() {
+  startTimer = () => {
+    this.setState({
+      timerOn: true,
+      timerStart: true,
+      workTime: this.state.workTime
+    });
+    this.timer = setInterval(() => {
+      const newTime = this.state.workTime - 1;
+      if (newTime >= 0) {
+        this.setState({
+          workTime: newTime
+        });
+        this.showRemainTime(this.state.workTime);
+        console.log(this.state.workTime);
+      } else {
+        clearInterval(this.timer);
+        this.setState({ timerOn: false, timerStart: false });
+        alert("time up");
+      }
+    }, 1000);
+  };
+
+  stopTimer = () => {
+    clearInterval(this.timer);
+    this.setState({
+      timerOn: false
+    });
+  };
+
+  resetTimer = () => {
+    this.showRemainTime(1500);
+    clearInterval(this.timer);
+    this.setState(prevState => {
+      return {
+        workTime: 1500,
+        timerOn: false,
+        timerStart: false
+      };
+    });
+  };
+
+  showRemainTime = time => {
+    let minute = parseInt(time / 60);
+    if (minute < 10) {
+      minute = `0${minute}`;
+    }
+    let second = time % 60;
+    if (second < 10) {
+      second = `0${second}`;
+    }
+    this.setState({
+      timerMinutes: minute,
+      timerSeconds: second,
+      timeText: `${minute}:${second}`
+    });
+  };
+
+  updateCurrentDate = () => {
     const date = new Date();
     const year = date.getFullYear();
     let month = date.getMonth() + 1;
@@ -57,20 +115,11 @@ class Main extends Component {
       currentDay: weekday,
       currentTime: currentTime
     }));
-  }
-
-  switchTimer =()=>{
-    this.setState(prevState =>{
-      const timerStatus = !prevState.isPlaying;
-      return {
-        isPlaying:timerStatus
-      }
-    })
-    console.log(this.state.isPlaying)
-  }
+  };
 
   render() {
-    const { currentDate, currentDay, currentTime } = this.state;
+    const { currentDate, currentDay, currentTime, timeText } = this.state;
+    const { workTime, timerStart, timerOn } = this.state;
     const { showTodo } = this.props;
     return (
       <div
@@ -88,19 +137,24 @@ class Main extends Component {
         </div>
         <div className={styles.content}>
           <div className={styles.count_container}>
-            <div className={styles.count}>25:00</div>
+            <div className={styles.count}>
+              <span>{timeText}</span>
+            </div>
             <div className={styles.controller}>
               <div className={styles.bell}>
                 <img src={bell} alt="bell" />
               </div>
-              <div className={styles.play} onClick={this.switchTimer}>
-                {
-                  this.state.isPlaying? <img src={pause} alt="pause" />: <img src={play} alt="play"/>
-                }
-                
+              <div className={styles.play}>
+                {timerOn === false &&
+                  (timerStart === false || workTime > 0) && (
+                    <img src={play} alt="play" onClick={this.startTimer} />
+                  )}
+                {timerOn === true && timerStart === true && (
+                  <img src={pause} alt="pause" onClick={this.stopTimer} />
+                )}
               </div>
-              <div className={styles.delete}>
-                <img src={deleted} alt="delete" />
+              <div className={styles.delete} onClick={this.resetTimer}>
+                <img src={deleted} alt="rest" />
               </div>
             </div>
           </div>
