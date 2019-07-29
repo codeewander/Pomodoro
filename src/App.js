@@ -25,7 +25,10 @@ class App extends Component {
     const showTodo = this.state.showTodo;
 
     return (
-      <div className={styles.app}>
+      <div
+        className={styles.app}
+        style={{ overflow: this.state.showTodo ? "hidden" : null }}
+      >
         <Navbar clickTodoButton={this.clickTodoButton} showTodo={showTodo} />
         <Todo showTodo={showTodo} />
         <Main showTodo={showTodo} />

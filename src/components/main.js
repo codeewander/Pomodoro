@@ -16,7 +16,8 @@ class Main extends Component {
       timerOn: false,
       workTime: 1500,
       timerStart: false,
-      timeText: ""
+      timeText: "",
+      soundOn: false
     };
   }
   componentDidMount() {
@@ -37,11 +38,10 @@ class Main extends Component {
           workTime: newTime
         });
         this.showRemainTime(this.state.workTime);
-        console.log(this.state.workTime);
       } else {
         clearInterval(this.timer);
+        this.playSound();
         this.setState({ timerOn: false, timerStart: false });
-        alert("time up");
       }
     }, 1000);
   };
@@ -54,7 +54,6 @@ class Main extends Component {
   };
 
   resetTimer = () => {
-    this.showRemainTime(1500);
     clearInterval(this.timer);
     this.setState(prevState => {
       return {
@@ -63,6 +62,7 @@ class Main extends Component {
         timerStart: false
       };
     });
+    this.showRemainTime(this.state.workTime);
   };
 
   showRemainTime = time => {
@@ -75,8 +75,6 @@ class Main extends Component {
       second = `0${second}`;
     }
     this.setState({
-      timerMinutes: minute,
-      timerSeconds: second,
       timeText: `${minute}:${second}`
     });
   };
@@ -95,6 +93,9 @@ class Main extends Component {
     }
     if (strDate >= 0 && strDate <= 9) {
       strDate = "0" + strDate;
+    }
+    if (minute >= 0 && minute <= 9) {
+      minute = "0" + minute;
     }
     const currentDate = year + "." + month + "." + strDate;
     const currentTime = hour + ":" + minute;
@@ -117,10 +118,28 @@ class Main extends Component {
     }));
   };
 
+  handleSound = () => {
+    this.setState(prevState => {
+      const toggleSound = !prevState.soundOn;
+      return { soundOn: toggleSound };
+    });
+  };
+
+  playSound = () => {
+    console.log(this.state.soundOn);
+    const audioPlayer = document.getElementById("player");
+    if (this.state.soundOn && this.state.workTime === 0) {
+      audioPlayer.play();
+    } else {
+      audioPlayer.pause();
+    }
+  };
+
   render() {
     const { currentDate, currentDay, currentTime, timeText } = this.state;
     const { workTime, timerStart, timerOn } = this.state;
     const { showTodo } = this.props;
+
     return (
       <div
         className={styles.main}
@@ -138,10 +157,29 @@ class Main extends Component {
         <div className={styles.content}>
           <div className={styles.count_container}>
             <div className={styles.count}>
-              <span>{timeText}</span>
+              <span
+                style={{ color: this.state.workTime === 0 ? "#f08448" : null }}
+              >
+                {timeText}
+              </span>
             </div>
             <div className={styles.controller}>
-              <div className={styles.bell}>
+              <audio id="player">
+                <source
+                  src="http://www.gravomaster.com/alarm/sounds/schoolbell2.wav"
+                  type="audio/mpeg"
+                />
+              </audio>
+              <div
+                className={styles.bell}
+                onClick={this.handleSound}
+                style={{
+                  border: this.state.soundOn
+                    ? "2px solid #f08448"
+                    : "2px solid #e8e8e8",
+                  backgroundColor: this.state.soundOn ? "#f08448" : null
+                }}
+              >
                 <img src={bell} alt="bell" />
               </div>
               <div className={styles.play}>

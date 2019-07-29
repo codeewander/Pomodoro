@@ -24,6 +24,9 @@
 }
 .content {
   display: flex;
+  width: calc(100% - 80px);
+  color: #e8e8e8;
+  margin-left: auto;
 }
 .count_container {
   flex-basis: 50%;
@@ -78,8 +81,6 @@
   }
 }
 .content {
-  flex-basis: 50%;
-  color: #e8e8e8;
   h2 {
     font-size: 32px;
     &:before {
