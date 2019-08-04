@@ -1,7 +1,15 @@
-.buttons button {
-  background: none;
-  border: none;
-  cursor: pointer;
+.buttons {
+  .checked {
+    font-size: 30px;
+    color: #ffffff;
+  }
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 5px;
+    vertical-align: text-bottom;
+  }
 }
 
 .todolist {
@@ -9,15 +17,7 @@
     padding: 0;
     margin-top: 50px;
   }
-  .undo:before {
-    content: "";
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    border: 1px solid #e8e8e8;
-    border-radius: 50%;
-    margin-right: 20px;
-  }
+
   .completed:before {
     content: "✓";
     display: inline-block;
@@ -25,7 +25,6 @@
     height: 24px;
     border: 1px solid #e8e8e8;
     border-radius: 50%;
-    margin-right: 20px;
     text-align: center;
     font-size: 24px;
     line-height: 24px;
@@ -39,7 +38,25 @@
     text-align: left;
     display: flex;
     align-items: center;
-
+    justify-content: space-between;
+    .player {
+      width: 26px;
+      height: 26px;
+      border: 1px solid #e8e8e8;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 1;
+      &::before {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+      }
+      img {
+        width: 50%;
+        vertical-align: middle;
+      }
+    }
     span {
       vertical-align: middle;
     }
@@ -47,11 +64,10 @@
       border-bottom: 1px solid #e8e8e8;
     }
 
-    div {
-      margin-left: auto;
-      img {
-        vertical-align: middle;
-      }
-    }
+    // div {
+    //   img {
+    //     vertical-align: middle;
+    //   }
+    // }
   }
 }

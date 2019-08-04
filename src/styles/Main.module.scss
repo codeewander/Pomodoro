@@ -5,10 +5,10 @@
   // display: none;
 }
 .date {
-  font-size: 16px;
+  font-size: 25px;
   color: #ffffff;
   position: relative;
-  height: 50px;
+  height: 100px;
   p {
     text-align: right;
     position: absolute;
@@ -81,6 +81,16 @@
   }
 }
 .content {
+  .resttext {
+    text-align: left;
+    h3 {
+      font-size: 55px;
+      font-weight: bold;
+    }
+    p {
+      font-size: 30px;
+    }
+  }
   h2 {
     font-size: 32px;
     &:before {
