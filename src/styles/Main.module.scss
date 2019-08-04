@@ -8,7 +8,7 @@
   font-size: 25px;
   color: #ffffff;
   position: relative;
-  height: 100px;
+  height: 65px;
   p {
     text-align: right;
     position: absolute;
@@ -37,16 +37,21 @@
   }
   .controller {
     text-align: center;
-    .bell,
     .delete {
       border: 2px solid #e8e8e8;
-      display: inline-block;
+    }
+    .bell,
+    .delete {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      width: 48px;
-      height: 48px;
+      display: inline-block;
       text-align: center;
-      margin: 5px;
+      margin: 10px;
+      vertical-align: middle;
+      padding: 7px;
       cursor: pointer;
+
       &:before {
         content: "";
         display: inline-block;
@@ -59,14 +64,16 @@
       }
     }
     .play {
-      width: 64px;
-      height: 64px;
+      width: 32px;
+      height: 32px;
       background-color: #e8e8e8;
       border-radius: 50%;
       display: inline-block;
       text-align: center;
-      margin: 5px;
+      margin: 10px;
       cursor: pointer;
+      padding: 13px;
+      vertical-align: middle;
       &:before {
         content: "";
         display: inline-block;

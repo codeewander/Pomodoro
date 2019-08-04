@@ -13,7 +13,9 @@ class App extends Component {
       time: 1500,
       timeText: "",
       timerOn: false,
-      timerStart: false
+      timerStart: false,
+      currentFilter: "all",
+      soundOn: false
     };
   }
 
@@ -61,7 +63,8 @@ class App extends Component {
     });
   };
 
-  resetTimer = mode => {
+  resetTimer = () => {
+    const mode = this.state.mode;
     console.log(mode);
     clearInterval(this.timer);
     if (mode === "work") {
@@ -117,6 +120,36 @@ class App extends Component {
     this.showTodoList(presentMode);
   };
 
+  changeFilterComplete = () => {
+    this.setState({
+      currentFilter: "completed"
+    });
+    console.log("completed");
+  };
+
+  changeFilterActive = () => {
+    this.setState({
+      currentFilter: "active"
+    });
+    console.log("active");
+  };
+
+  playSound = () => {
+    const audioPlayer = document.getElementById("player");
+    if (this.state.soundOn && this.state.time === 0) {
+      audioPlayer.play();
+    } else {
+      audioPlayer.pause();
+    }
+  };
+
+  handleSound = () => {
+    this.setState(prevState => {
+      const toggleSound = !prevState.soundOn;
+      return { soundOn: toggleSound };
+    });
+  };
+
   render() {
     const { showTodo, mode, time } = this.state;
 
@@ -130,7 +163,12 @@ class App extends Component {
           showTodo={showTodo}
           changeRestMode={this.changeRestMode}
         />
-        <Todo showTodo={showTodo} />
+        <Todo
+          showTodo={showTodo}
+          currentFilter={this.state.currentFilter}
+          changeFilterComplete={this.changeFilterComplete}
+          changeFilterActive={this.changeFilterActive}
+        />
         <Main
           showTodo={showTodo}
           mode={mode}
@@ -142,6 +180,8 @@ class App extends Component {
           resetTimer={this.resetTimer}
           timerOn={this.state.timerOn}
           timerStart={this.state.timerStart}
+          handleSound={this.handleSound}
+          soundOn={this.state.soundOn}
         />
       </div>
     );

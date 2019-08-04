@@ -1,6 +1,6 @@
 .buttons {
   .checked {
-    font-size: 30px;
+    font-size: 20px;
     color: #ffffff;
   }
   button {
@@ -8,7 +8,7 @@
     border: none;
     cursor: pointer;
     padding: 0 5px;
-    vertical-align: text-bottom;
+    vertical-align: middle;
   }
 }
 
@@ -40,12 +40,13 @@
     align-items: center;
     justify-content: space-between;
     .player {
-      width: 26px;
-      height: 26px;
+      width: 20px;
+      height: 20px;
       border: 1px solid #e8e8e8;
       border-radius: 50%;
       text-align: center;
       line-height: 1;
+      padding: 5px;
       &::before {
         content: "";
         display: inline-block;

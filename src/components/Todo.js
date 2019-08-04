@@ -14,7 +14,6 @@ class Todo extends Component {
     this.setState({
       text: e.target.value
     });
-    console.log(this.state.text);
   };
 
   onKeyDown = e => {
@@ -31,7 +30,6 @@ class Todo extends Component {
       todoList: todolist,
       text: ""
     });
-    console.log(e);
   };
 
   removeTodo = index => {
@@ -72,8 +70,8 @@ class Todo extends Component {
           <div className={styles.panel}>
             <h1>待辦清單</h1>
             <div className={styles.status_panel}>
-              <button>未完成</button>
-              <button>已完成</button>
+              <button onClick={this.props.changeFilterActive}>未完成</button>
+              <button onClick={this.props.changeFilterComplete}>已完成</button>
             </div>
           </div>
           <form>
@@ -90,6 +88,7 @@ class Todo extends Component {
             todolist={this.state.todoList}
             removeTodo={this.removeTodo}
             completeTodo={this.completeTodo}
+            currentFilter={this.props.currentFilter}
           />
         </div>
       </div>

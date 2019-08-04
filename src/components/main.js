@@ -61,23 +61,6 @@ class Main extends Component {
     }));
   };
 
-  handleSound = () => {
-    this.setState(prevState => {
-      const toggleSound = !prevState.soundOn;
-      return { soundOn: toggleSound };
-    });
-  };
-
-  playSound = () => {
-    console.log(this.state.soundOn);
-    const audioPlayer = document.getElementById("player");
-    if (this.state.soundOn && this.state.workTime === 0) {
-      audioPlayer.play();
-    } else {
-      audioPlayer.pause();
-    }
-  };
-
   render() {
     const { currentDate, currentDay, currentTime } = this.state;
     const {
@@ -121,29 +104,40 @@ class Main extends Component {
                   type="audio/mpeg"
                 />
               </audio>
-              <div
+              <img
+                src={bell}
+                alt="bell"
                 className={styles.bell}
-                onClick={this.handleSound}
+                onClick={this.props.handleSound}
                 style={{
-                  border: this.state.soundOn
+                  border: this.props.soundOn
                     ? "2px solid #f08448"
                     : "2px solid #e8e8e8",
-                  backgroundColor: this.state.soundOn ? "#f08448" : null
+                  backgroundColor: this.props.soundOn ? "#f08448" : null
                 }}
-              >
-                <img src={bell} alt="bell" />
-              </div>
-              <div className={styles.play}>
-                {timerOn === false && (timerStart === false || time > 0) && (
-                  <img src={play} alt="play" onClick={startTimer} />
-                )}
-                {timerOn === true && timerStart === true && (
-                  <img src={pause} alt="pause" onClick={stopTimer} />
-                )}
-              </div>
-              <div className={styles.delete} onClick={resetTimer}>
-                <img src={deleted} alt="rest" />
-              </div>
+              />
+              {timerOn === false && (timerStart === false || time > 0) && (
+                <img
+                  src={play}
+                  alt="play"
+                  onClick={startTimer}
+                  className={styles.play}
+                />
+              )}
+              {timerOn === true && timerStart === true && (
+                <img
+                  src={pause}
+                  alt="pause"
+                  onClick={stopTimer}
+                  className={styles.play}
+                />
+              )}
+              <img
+                src={deleted}
+                alt="rest"
+                className={styles.delete}
+                onClick={resetTimer}
+              />
             </div>
           </div>
           {this.props.mode === "work" && (
