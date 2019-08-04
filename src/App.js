@@ -9,12 +9,27 @@ class App extends Component {
     super();
     this.state = {
       showTodo: false,
-      mode: "work"
+      mode: "work",
+      time: 1500,
+      timeText: ""
     };
   }
+
+  showRemainTime = time => {
+    let minute = parseInt(time / 60);
+    if (minute < 10) {
+      minute = `0${minute}`;
+    }
+    let second = time % 60;
+    if (second < 10) {
+      second = `0${second}`;
+    }
+    this.setState({
+      timeText: `${minute}:${second}`
+    });
+  };
+
   showTodoList = mode => {
-    console.log(this.state.mode);
-    console.log(mode);
     if (mode === this.state.mode) {
       this.setState(state => ({
         showTodo: !state.showTodo
@@ -24,28 +39,30 @@ class App extends Component {
 
   changeWorkMode = e => {
     let presentMode = e.target.value;
-    console.log(presentMode);
     this.setState(
       prevState => ({
-        mode: "work"
+        mode: "work",
+        time: 1500
       }),
-      this.showTodoList(presentMode)
+      this.showTodoList(presentMode),
+      this.showRemainTime(1500)
     );
   };
 
   changeRestMode = e => {
     let presentMode = e.target.value;
-    console.log(presentMode);
     this.setState(
       prevState => ({
-        mode: "rest"
+        mode: "rest",
+        time: 300
       }),
-      this.showTodoList(presentMode)
+      this.showTodoList(presentMode),
+      this.showRemainTime(300)
     );
   };
 
   render() {
-    const showTodo = this.state.showTodo;
+    const { showTodo, mode, time } = this.state;
 
     return (
       <div
@@ -58,7 +75,13 @@ class App extends Component {
           changeRestMode={this.changeRestMode}
         />
         <Todo showTodo={showTodo} />
-        <Main showTodo={showTodo} />
+        <Main
+          showTodo={showTodo}
+          mode={mode}
+          time={time}
+          showRemainTime={this.showRemainTime}
+          timeText={this.state.timeText}
+        />
       </div>
     );
   }

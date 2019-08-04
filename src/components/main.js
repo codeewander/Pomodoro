@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import bell from "../images/icon-bell.svg";
 import play from "../images/icon-play--orange.svg";
 import deleted from "../images/icon-delete.svg";
-import tomato from "../images/tomato--orange.svg";
+import orangeTomato from "../images/tomato--orange.svg";
+import greenTomato from "../images/tomato--green.svg";
 import pause from "../images/icon-pause--orange.svg";
 import styles from "../styles/Main.module.scss";
 
@@ -14,15 +15,15 @@ class Main extends Component {
       currentDay: "",
       currentTime: "",
       timerOn: false,
-      workTime: 1500,
+      // workTime: 1500,
       timerStart: false,
-      timeText: "",
+      // timeText: "",
       soundOn: false
     };
   }
   componentDidMount() {
     setInterval(() => this.updateCurrentDate(), 1000);
-    this.showRemainTime(this.state.workTime);
+    this.props.showRemainTime(this.props.time);
   }
 
   startTimer = () => {
@@ -53,31 +54,31 @@ class Main extends Component {
     });
   };
 
-  resetTimer = () => {
-    clearInterval(this.timer);
-    this.setState(prevState => {
-      return {
-        workTime: 1500,
-        timerOn: false,
-        timerStart: false
-      };
-    });
-    this.showRemainTime(this.state.workTime);
-  };
+  // resetTimer = () => {
+  //   clearInterval(this.timer);
+  //   this.setState(prevState => {
+  //     return {
+  //       workTime: 1500,
+  //       timerOn: false,
+  //       timerStart: false
+  //     };
+  //   });
+  //   this.showRemainTime(this.state.workTime);
+  // };
 
-  showRemainTime = time => {
-    let minute = parseInt(time / 60);
-    if (minute < 10) {
-      minute = `0${minute}`;
-    }
-    let second = time % 60;
-    if (second < 10) {
-      second = `0${second}`;
-    }
-    this.setState({
-      timeText: `${minute}:${second}`
-    });
-  };
+  // showRemainTime = time => {
+  //   let minute = parseInt(time / 60);
+  //   if (minute < 10) {
+  //     minute = `0${minute}`;
+  //   }
+  //   let second = time % 60;
+  //   if (second < 10) {
+  //     second = `0${second}`;
+  //   }
+  //   this.setState({
+  //     timeText: `${minute}:${second}`
+  //   });
+  // };
 
   updateCurrentDate = () => {
     const date = new Date();
@@ -136,9 +137,9 @@ class Main extends Component {
   };
 
   render() {
-    const { currentDate, currentDay, currentTime, timeText } = this.state;
-    const { workTime, timerStart, timerOn } = this.state;
-    const { showTodo } = this.props;
+    const { currentDate, currentDay, currentTime } = this.state;
+    const { timerStart, timerOn } = this.state;
+    const { showTodo, time, timeText } = this.props;
 
     return (
       <div
@@ -183,10 +184,9 @@ class Main extends Component {
                 <img src={bell} alt="bell" />
               </div>
               <div className={styles.play}>
-                {timerOn === false &&
-                  (timerStart === false || workTime > 0) && (
-                    <img src={play} alt="play" onClick={this.startTimer} />
-                  )}
+                {timerOn === false && (timerStart === false || time > 0) && (
+                  <img src={play} alt="play" onClick={this.startTimer} />
+                )}
                 {timerOn === true && timerStart === true && (
                   <img src={pause} alt="pause" onClick={this.stopTimer} />
                 )}
@@ -196,16 +196,33 @@ class Main extends Component {
               </div>
             </div>
           </div>
-          <div className={styles.todo}>
-            <h2>蕃茄鐘UI介面</h2>
-            <ul>
-              <li>學習Javascript</li>
-              <li>學習網頁切版</li>
-              <li>設計蕃茄鐘UI介面</li>
-            </ul>
-          </div>
+          {this.props.mode === "work" && (
+            <div className={styles.todo}>
+              <h2>蕃茄鐘UI介面</h2>
+              <ul>
+                <li>學習Javascript</li>
+                <li>學習網頁切版</li>
+                <li>設計蕃茄鐘UI介面</li>
+              </ul>
+            </div>
+          )}
+          {this.props.mode === "rest" && (
+            <div className={styles.resttext}>
+              <h3>休息，</h3>
+              <p>是為了走更遠</p>
+            </div>
+          )}
         </div>
-        <img className={styles.tomato} src={tomato} alt="tomato" />
+        {this.props.mode === "work" && (
+          <img
+            className={styles.tomato}
+            src={orangeTomato}
+            alt="orangeTomato"
+          />
+        )}
+        {this.props.mode === "rest" && (
+          <img className={styles.tomato} src={greenTomato} alt="greenTomato" />
+        )}
       </div>
     );
   }
