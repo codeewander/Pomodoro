@@ -92,38 +92,49 @@
       font-size: 30px;
     }
   }
-  h2 {
-    font-size: 32px;
-    &:before {
-      content: "";
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      border: 1px solid #e8e8e8;
-      border-radius: 50%;
-      margin-right: 20px;
-      vertical-align: middle;
+  .todo {
+    text-align: center;
+    flex-basis: 50%;
+    h3 {
+      font-size: 55px;
+      font-weight: bold;
+    }
+    p {
+      font-size: 30px;
     }
   }
-  ul {
-    display: inline-block;
-    margin-right: 105px;
-    li {
-      list-style: none;
-      text-align: left;
-      line-height: 50px;
-      &:before {
-        content: "";
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        border: 1px solid #e8e8e8;
-        border-radius: 50%;
-        margin-right: 20px;
-        vertical-align: middle;
-      }
-    }
-  }
+  // h2 {
+  //   font-size: 32px;
+  //   &:before {
+  //     content: "";
+  //     display: inline-block;
+  //     width: 40px;
+  //     height: 40px;
+  //     border: 1px solid #e8e8e8;
+  //     border-radius: 50%;
+  //     margin-right: 20px;
+  //     vertical-align: middle;
+  //   }
+  // }
+  // ul {
+  //   display: inline-block;
+  //   margin-right: 105px;
+  //   li {
+  //     list-style: none;
+  //     text-align: left;
+  //     line-height: 50px;
+  //     &:before {
+  //       content: "";
+  //       display: inline-block;
+  //       width: 24px;
+  //       height: 24px;
+  //       border: 1px solid #e8e8e8;
+  //       border-radius: 50%;
+  //       margin-right: 20px;
+  //       vertical-align: middle;
+  //     }
+  //   }
+  // }
 }
 .tomato {
   position: absolute;

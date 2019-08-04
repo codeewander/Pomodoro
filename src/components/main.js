@@ -8,16 +8,12 @@ import pause from "../images/icon-pause--orange.svg";
 import styles from "../styles/Main.module.scss";
 
 class Main extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       currentDate: "",
       currentDay: "",
       currentTime: "",
-      timerOn: false,
-      // workTime: 1500,
-      timerStart: false,
-      // timeText: "",
       soundOn: false
     };
   }
@@ -25,60 +21,6 @@ class Main extends Component {
     setInterval(() => this.updateCurrentDate(), 1000);
     this.props.showRemainTime(this.props.time);
   }
-
-  startTimer = () => {
-    this.setState({
-      timerOn: true,
-      timerStart: true,
-      workTime: this.state.workTime
-    });
-    this.timer = setInterval(() => {
-      const newTime = this.state.workTime - 1;
-      if (newTime >= 0) {
-        this.setState({
-          workTime: newTime
-        });
-        this.showRemainTime(this.state.workTime);
-      } else {
-        clearInterval(this.timer);
-        this.playSound();
-        this.setState({ timerOn: false, timerStart: false });
-      }
-    }, 1000);
-  };
-
-  stopTimer = () => {
-    clearInterval(this.timer);
-    this.setState({
-      timerOn: false
-    });
-  };
-
-  // resetTimer = () => {
-  //   clearInterval(this.timer);
-  //   this.setState(prevState => {
-  //     return {
-  //       workTime: 1500,
-  //       timerOn: false,
-  //       timerStart: false
-  //     };
-  //   });
-  //   this.showRemainTime(this.state.workTime);
-  // };
-
-  // showRemainTime = time => {
-  //   let minute = parseInt(time / 60);
-  //   if (minute < 10) {
-  //     minute = `0${minute}`;
-  //   }
-  //   let second = time % 60;
-  //   if (second < 10) {
-  //     second = `0${second}`;
-  //   }
-  //   this.setState({
-  //     timeText: `${minute}:${second}`
-  //   });
-  // };
 
   updateCurrentDate = () => {
     const date = new Date();
@@ -138,8 +80,16 @@ class Main extends Component {
 
   render() {
     const { currentDate, currentDay, currentTime } = this.state;
-    const { timerStart, timerOn } = this.state;
-    const { showTodo, time, timeText } = this.props;
+    const {
+      showTodo,
+      time,
+      timeText,
+      timerStart,
+      timerOn,
+      stopTimer,
+      startTimer,
+      resetTimer
+    } = this.props;
 
     return (
       <div
@@ -185,25 +135,21 @@ class Main extends Component {
               </div>
               <div className={styles.play}>
                 {timerOn === false && (timerStart === false || time > 0) && (
-                  <img src={play} alt="play" onClick={this.startTimer} />
+                  <img src={play} alt="play" onClick={startTimer} />
                 )}
                 {timerOn === true && timerStart === true && (
-                  <img src={pause} alt="pause" onClick={this.stopTimer} />
+                  <img src={pause} alt="pause" onClick={stopTimer} />
                 )}
               </div>
-              <div className={styles.delete} onClick={this.resetTimer}>
+              <div className={styles.delete} onClick={resetTimer}>
                 <img src={deleted} alt="rest" />
               </div>
             </div>
           </div>
           {this.props.mode === "work" && (
             <div className={styles.todo}>
-              <h2>蕃茄鐘UI介面</h2>
-              <ul>
-                <li>學習Javascript</li>
-                <li>學習網頁切版</li>
-                <li>設計蕃茄鐘UI介面</li>
-              </ul>
+              <h3>專心，</h3>
+              <p>一步一步完成</p>
             </div>
           )}
           {this.props.mode === "rest" && (
