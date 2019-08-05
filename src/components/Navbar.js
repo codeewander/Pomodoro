@@ -1,20 +1,22 @@
 import React from "react";
-import analysis from "../images/icon-analysis.svg";
-import list from "../images/icon-list.svg";
 import styles from "../styles/Navbar.module.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleRestMode, toggleWorkMode } from "../redux/actions/actions";
 
 const Navbar = props => {
+  // const mode = useSelector(state => state.mode.mode);
+  // const showTodo = useSelector(state => state.mode.showTodo);
+  const dispatch = useDispatch();
+
   return (
     <div className={styles.nav}>
       <button
         className={styles.green}
         value="rest"
-        onClick={props.changeRestMode}
-      >
-        <div />
-      </button>
+        onClick={() => dispatch(toggleRestMode())}
+      />
       <button
-        onClick={props.changeWorkMode}
+        onClick={() => dispatch(toggleWorkMode())}
         value="work"
         className={styles.orange}
       />
