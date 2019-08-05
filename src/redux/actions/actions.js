@@ -34,6 +34,31 @@ export const completeTodo = id => {
   };
 };
 
+export const removeTodo = id => {
+  return {
+    type: "REMOVE_TODO",
+    id
+  };
+};
+
+export const filterCompletedTodo = () => {
+  return {
+    type: "FILTER_COMPLETED_TODO"
+  };
+};
+
+export const filterActiveTodo = () => {
+  return {
+    type: "FILTER_ACTIVE_TODO"
+  };
+};
+
+export const filterAllTodo = () => {
+  return {
+    type: "FILTER_ALL_TODO"
+  };
+};
+
 export const setVisibilityFilter = filter => {
   return {
     type: "SET_VISIBILITY_FILTER",

@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import TodoList from "./TodoList";
 import styles from "../styles/Todo.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo } from "../redux/actions/actions";
+import {
+  addTodo,
+  filterActiveTodo,
+  filterCompletedTodo,
+  filterAllTodo
+} from "../redux/actions/actions";
 
 const Todo = () => {
   const showTodo = useSelector(state => state.showTodo);
@@ -26,8 +31,11 @@ const Todo = () => {
         <div className={styles.panel}>
           <h1>待辦清單</h1>
           <div className={styles.status_panel}>
-            <button>未完成</button>
-            <button>已完成</button>
+            <button onClick={() => dispatch(filterActiveTodo())}>未完成</button>
+            <button onClick={() => dispatch(filterCompletedTodo())}>
+              已完成
+            </button>
+            <button onClick={() => dispatch(filterAllTodo())}>全部</button>
           </div>
         </div>
         <form

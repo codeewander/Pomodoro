@@ -69,6 +69,22 @@ const allReducer = (state = initialState, action) => {
           )
         ]
       });
+    case "REMOVE_TODO":
+      return Object.assign({}, state, {
+        todoList: [...state.todoList.filter(todo => todo.id !== action.id)]
+      });
+    case "FILTER_ACTIVE_TODO":
+      return Object.assign({}, state, {
+        filter: "active"
+      });
+    case "FILTER_ALL_TODO":
+      return Object.assign({}, state, {
+        filter: "all"
+      });
+    case "FILTER_COMPLETED_TODO":
+      return Object.assign({}, state, {
+        filter: "completed"
+      });
     case "SET_VISIBILITY_FILTER":
       return Object.assign({}, state, {
         todoList: [
