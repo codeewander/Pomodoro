@@ -13,7 +13,10 @@ const initialState = {
   todoList: [],
   timerOn: false,
   timerStart: false,
-  filter: "all"
+  filter: "all",
+  currentWeekday: "",
+  currentDate: "",
+  currentTime: ""
 };
 
 const allReducer = (state = initialState, action) => {
@@ -95,10 +98,31 @@ const allReducer = (state = initialState, action) => {
         ]
       });
     //時間操作
-    case "TIMER_START":
+    case "SET_CURRENT_TIME":
       return Object.assign({}, state, {
-        timerOn: true
+        currentWeekday: action.currentWeekday,
+        currentDate: action.currentDate,
+        currentTime: action.currentTime
       });
+
+    case "SET_TIMER":
+      if (state.mode === "work") {
+        return Object.assign({}, state, {
+          timer: 1500
+        });
+      } else {
+        return Object.assign({}, state, {
+          timer: 300
+        });
+      }
+
+    case "TICK":
+      return Object.assign({}, state, {
+        timer: state.timer--
+      });
+
+    // case "SHOW_REMAINTIME":
+    //   return state.timer;
     default:
       return state;
   }

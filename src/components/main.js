@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import bell from "../images/icon-bell.svg";
 import play from "../images/icon-play--orange.svg";
 import deleted from "../images/icon-delete.svg";
@@ -6,20 +7,37 @@ import orangeTomato from "../images/tomato--orange.svg";
 import greenTomato from "../images/tomato--green.svg";
 import pause from "../images/icon-pause--orange.svg";
 import styles from "../styles/Main.module.scss";
-import { useSelector } from "react-redux";
+import { setCurrentTime, updateTime } from "../redux/actions/actions";
+// import { useSelector } from "react-redux";
 
-const Main = () => {
-  const mode = useSelector(state => state.mode);
+const Main = ({
+  timer,
+  mode,
+  currentDate,
+  currentWeekday,
+  currentTime,
+  setCurrentTime,
+  updateTime
+}) => {
+  // const mode = useSelector(state => state.mode);
+  // const time = useSelector(state => state.time);
+  useEffect(() => {
+    setCurrentTime();
+    updateTime();
+  });
+
   return (
     <div className={styles.main}>
       <div className={styles.date}>
-        <p />
+        <p>
+          <span>{currentDate}</span>
+          <span>{currentWeekday}</span>
+          <span>{currentTime}</span>
+        </p>
       </div>
       <div className={styles.content}>
         <div className={styles.count_container}>
-          <div className={styles.count}>
-            <span />
-          </div>
+          <div className={styles.count}>{timer}</div>
           <div className={styles.controller}>
             <audio id="player">
               <source
@@ -28,7 +46,7 @@ const Main = () => {
               />
             </audio>
             <img src={bell} alt="bell" className={styles.bell} />
-
+            <img src={play} alt="play" className={styles.play} />
             <img
               src={deleted}
               alt="rest"
@@ -58,6 +76,27 @@ const Main = () => {
       )}
     </div>
   );
+};
+
+const mapStateToProps = state => {
+  return {
+    mode: state.mode,
+    timer: state.timer,
+    currentTime: state.currentTime,
+    currentWeekday: state.currentWeekday,
+    currentDate: state.currentDate
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentTime: () => {
+      dispatch(setCurrentTime());
+    },
+    updateTime: () => {
+      dispatch(updateTime());
+    }
+  };
 };
 
 // class Main extends Component {
@@ -221,4 +260,7 @@ const Main = () => {
 //   }
 // }
 
-export default Main;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Main);
