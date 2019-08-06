@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styles from "../styles/TodoList.module.scss";
 import remove from "../images/icon-cancel.svg";
 import { useSelector, useDispatch } from "react-redux";

@@ -118,12 +118,6 @@ export const updateTime = () => {
   };
 };
 
-export const setTimer = () => {
-  return {
-    type: "SET_TIMER"
-  };
-};
-
 export const resetTimer = () => {
   return {
     type: "RESET_TIMER"
@@ -136,23 +130,28 @@ export const tick = () => {
   };
 };
 
+let timer = null;
 export const startCounter = () => {
   return dispatch => {
-    setInterval(() => dispatch(tick()), 1000);
+    timer = setInterval(() => dispatch(tick()), 1000);
   };
 };
 
-export const countdown = time => {
+export const countdown = () => {
   return {
-    type: "COUNT_DOWN",
-    time
+    type: "COUNT_DOWN"
   };
 };
 
-export const countdownTimer = time => {
-  return dispatch => {
-    setTimeout(() => {
-      dispatch(countdown(1));
-    }, 1000);
+export const stopCounter = () => {
+  clearInterval(timer);
+  return {
+    type: "STOP_COUNTER"
+  };
+};
+
+export const handleSound = () => {
+  return {
+    type: "HANDLE_SOUND"
   };
 };

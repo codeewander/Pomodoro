@@ -7,17 +7,31 @@ import orangeTomato from "../images/tomato--orange.svg";
 import greenTomato from "../images/tomato--green.svg";
 import pause from "../images/icon-pause--orange.svg";
 import styles from "../styles/Main.module.scss";
-import { setCurrentTime, updateTime } from "../redux/actions/actions";
+import {
+  setCurrentTime,
+  updateTime,
+  startCounter,
+  resetTimer,
+  stopCounter,
+  handleSound
+} from "../redux/actions/actions";
 // import { useSelector } from "react-redux";
 
 const Main = ({
   timer,
+  timerOn,
+  timerStart,
   mode,
   currentDate,
   currentWeekday,
   currentTime,
   setCurrentTime,
-  updateTime
+  updateTime,
+  startCounter,
+  resetTimer,
+  stopCounter,
+  soundOn,
+  handleSound
 }) => {
   // const mode = useSelector(state => state.mode);
   // const time = useSelector(state => state.time);
@@ -26,6 +40,19 @@ const Main = ({
     updateTime();
   });
 
+  const timerText = () => {
+    let time = timer;
+    let minute = parseInt(time / 60);
+    if (minute < 10) {
+      minute = `0${minute}`;
+    }
+    let second = time % 60;
+    if (second < 10) {
+      second = `0${second}`;
+    }
+    let timeText = `${minute}:${second}`;
+    return timeText;
+  };
   return (
     <div className={styles.main}>
       <div className={styles.date}>
@@ -37,7 +64,7 @@ const Main = ({
       </div>
       <div className={styles.content}>
         <div className={styles.count_container}>
-          <div className={styles.count}>{timer}</div>
+          <div className={styles.count}>{timerText()}</div>
           <div className={styles.controller}>
             <audio id="player">
               <source
@@ -45,13 +72,37 @@ const Main = ({
                 type="audio/mpeg"
               />
             </audio>
-            <img src={bell} alt="bell" className={styles.bell} />
-            <img src={play} alt="play" className={styles.play} />
+            <img
+              src={bell}
+              alt="bell"
+              className={styles.bell}
+              onClick={handleSound}
+              style={{
+                border: soundOn ? "2px solid #f08448" : "2px solid #e8e8e8",
+                backgroundColor: soundOn ? "#f08448" : null
+              }}
+            />
+            {!timerOn && (!timerOn || timer > 0) && (
+              <img
+                src={play}
+                alt="play"
+                className={styles.play}
+                onClick={startCounter}
+              />
+            )}
+            {timerOn && timerStart && (
+              <img
+                src={pause}
+                alt="pause"
+                onClick={stopCounter}
+                className={styles.play}
+              />
+            )}
             <img
               src={deleted}
-              alt="rest"
+              alt="reset"
               className={styles.delete}
-              // onClick={resetTimer}
+              onClick={resetTimer}
             />
           </div>
         </div>
@@ -82,9 +133,12 @@ const mapStateToProps = state => {
   return {
     mode: state.mode,
     timer: state.timer,
+    timerOn: state.timerOn,
+    timerStart: state.timerStart,
     currentTime: state.currentTime,
     currentWeekday: state.currentWeekday,
-    currentDate: state.currentDate
+    currentDate: state.currentDate,
+    soundOn: state.soundOn
   };
 };
 
@@ -95,6 +149,18 @@ const mapDispatchToProps = dispatch => {
     },
     updateTime: () => {
       dispatch(updateTime());
+    },
+    startCounter: () => {
+      dispatch(startCounter());
+    },
+    resetTimer: () => {
+      dispatch(resetTimer());
+    },
+    stopCounter: () => {
+      dispatch(stopCounter());
+    },
+    handleSound: () => {
+      dispatch(handleSound());
     }
   };
 };

@@ -16,7 +16,8 @@ const initialState = {
   filter: "all",
   currentWeekday: "",
   currentDate: "",
-  currentTime: ""
+  currentTime: "",
+  soundOn: false
 };
 
 const allReducer = (state = initialState, action) => {
@@ -105,7 +106,7 @@ const allReducer = (state = initialState, action) => {
         currentTime: action.currentTime
       });
 
-    case "SET_TIMER":
+    case "RESET_TIMER":
       if (state.mode === "work") {
         return Object.assign({}, state, {
           timer: 1500
@@ -115,14 +116,21 @@ const allReducer = (state = initialState, action) => {
           timer: 300
         });
       }
-
     case "TICK":
       return Object.assign({}, state, {
-        timer: state.timer--
+        timer: state.timer - 1,
+        timerOn: true,
+        timerStart: true
       });
-
-    // case "SHOW_REMAINTIME":
-    //   return state.timer;
+    case "STOP_COUNTER":
+      return Object.assign({}, state, {
+        timer: state.timer,
+        timerOn: false
+      });
+    case "HANDLE_SOUND":
+      return Object.assign({}, state, {
+        soundOn: !state.soundOn
+      });
     default:
       return state;
   }

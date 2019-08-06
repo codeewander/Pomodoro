@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import TodoList from "./TodoList";
 import styles from "../styles/Todo.module.scss";
