@@ -1,9 +1,9 @@
 {
   "name": "my-app",
   "version": "0.1.0",
+  "homepage": "https://codeewander.github.io/Pomodoro/",
   "private": true,
   "dependencies": {
-    "eslint": "^6.2.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
