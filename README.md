@@ -1,40 +1,42 @@
 # Pomodoro
 
-## 專案說明
+English | [中文](./README.zh-TW.md)
+
+## Project description
 
 ![](https://i.imgur.com/RXytyLi.png)
 
-為了更熟練 Redux 操作，於是利用參加六角前端修煉精神時光屋的挑戰題目進行的小練習。此專案使用前端函式庫 React，狀態資料使用 React-Redux 套件，路由設定搭配 React Router。開發時，搭配 Redux DevTools 擴充套件進行 Debug。
+A side project which aims to practice Redux operation and to build a tool for improving work efficiency. Using React with the Redux state management API and React-router. Install the Redux DevTools extension for debugging.
 
-## 功能說明
+## Main Functions
 
-1. 側邊按鈕切換兩種模式：休息和工作
-2. 倒數計時(Countdown Timer)功能：開始/ 暫停/ 關閉
-3. 鈴聲提醒：開關按鈕
-4. 待辦清單：新增/刪除
-5. 待辦清單狀態篩選：已完成/未完成/全部
+1. Two Buttons on the side: switch rest mode/work mode
+2. Countdown Timer：start/ pause/ close
+3. Ring Alert：off/on
+4. Todo-lists：add/delete/completed
+5. Todo-lists filter：completed/incomplete/all
 
-## 安裝步驟 Installation
+## Installation process
 
-### 下載專案
+### Download project
 
 ```
 git clone git@github.com:codeewander/Pomodoro.git
 ```
 
-### 專案安裝
+### Install the dependencies
 
 ```
 npm run install
 ```
 
-### 開發模式
+### Run in development mode
 
 ```
 npm run serve
 ```
 
-### 專案建置
+### Run in production mode
 
 ```
 npm run build
