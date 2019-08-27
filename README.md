@@ -3,6 +3,7 @@
 ## 專案說明
 
 ![](https://i.imgur.com/RXytyLi.png)
+
 為了更熟練 Redux 操作，於是利用參加六角前端修煉精神時光屋的挑戰題目進行的小練習。此專案使用前端函式庫 React，狀態資料使用 React-Redux 套件，路由設定搭配 React Router。開發時，搭配 Redux DevTools 擴充套件進行 Debug。
 
 ## 功能說明
